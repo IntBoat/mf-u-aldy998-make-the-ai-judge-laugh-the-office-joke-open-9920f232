@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
-"""Make the AI Judge Laugh: the Office Joke Open (make.fun).
+"""Make the AI Judge Laugh: the Office Joke Open — a make.fun one-line entry. The program writes the entry text to /output/entry.txt, where the competition's sealed scorer reads it."""
 
-Writes the entry -- one line of office comedy --
-to /output/entry.txt, where the sealed scorer reads it."""
+from pathlib import Path
 
-import os
-
-TEXT = 'Our stand-up lasts longer than the sprint because Dave treats a quick update as a three-act play with a Q&A and an encore.'
+ENTRY = "Our standup ran so long the calendar invite expired, apologised, and sent a follow-up meeting to discuss the first meeting."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
